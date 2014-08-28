@@ -1,18 +1,16 @@
-import java.io.InputStream;
-import java.util.Scanner;
-
+// This is a class
 public class LabOne{
-	public static void main(String[] args) {
 
-	    System.out.println("Volume Computer");
-	    Scanner keyboard = new Scanner(System.in);
+	// Code is called from here
+	public static void main(String args[]){
 
-	    System.out.println("What's the Mass?");
-	    double mass = keyboard.nextDouble();
-	    System.out.println("What's the Density?");
-	    double density = keyboard.nextDouble();
-	    double volume = mass / density;
+		// This prints stuff.
+		System.out.println("Greetings");
+		System.out.println("I am Dylan Madisetti");
+		System.out.println("I happen to be an armadillo person");
+		System.out.println("I like cheese.");
 
-	    System.out.println("The Volume is:" + volume);
+		// Done.
 	}
+
 }
