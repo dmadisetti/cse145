@@ -1,6 +1,7 @@
-import java.io.InputStream;
-import java.util.Scanner;
 /**
+* AssignmentOne: Asks users for username. Does nothing
+* with username. Asks user for password and checks it 
+* against plaintext password.
 * .__            __            
 * |  |__ ___  __|  | __  ______
 * |  |  \\  \/  /  |/ / /  ___/
@@ -10,9 +11,13 @@ import java.util.Scanner;
 * Hacked together by Dylan Madisetti
 *
 * @author  Dylan Madisetti
-* @created 
+* @version 1.0, Aug 21, 2014
+* @source  https://github.com/dmadisetti/cse145
 * @website http://dylanmadisetti.com
 */
+import java.io.InputStream;
+import java.util.Scanner;
+
 
 public class AssignmentOne{
 
@@ -23,6 +28,7 @@ public class AssignmentOne{
 
 	// Constructor to start Password Checker
 	public AssignmentOne(){
+		// Output ma name
 		System.out.println("Password Checker");
 
 		// Username only needs to be put in once
