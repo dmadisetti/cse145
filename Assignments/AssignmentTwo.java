@@ -14,7 +14,6 @@
 * @source  https://github.com/dmadisetti/cse145
 * @website http://dylanmadisetti.com
 */
-import java.io.InputStream;
 import java.util.Scanner;
 
 public class AssignmentTwo{
@@ -61,7 +60,7 @@ public class AssignmentTwo{
         }
     }
 
-    // Constructor to start Password Checker
+    // Constructor to start Assignment Two
     private AssignmentTwo(){
         // Output ma name
         System.out.println("Welcome to the Triangle Program\n");
