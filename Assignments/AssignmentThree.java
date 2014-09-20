@@ -106,8 +106,191 @@ public class AssignmentThree{
 //      73: iconst_0      
 //      74: ireturn       
 //
-// Ideally instuctions 51 and 63 should be gotos instead of pushing another function on the stack
+// Ideally instuction 63 should be a goto instead of pushing another function on the stack
 // Futher reading shows that java purposefully doesn't tail recurse. Why? I don't know, reading 
 // online shows that Oracle doesn't care enough to do it. However, it's what's keeping me from 
 // setting TARGET = 1000000 and not worrying about a stackoverflow. It should be coming in some 
 // version of 8
+//
+// After writting this snippet on tail recursion I decided to see if a real programming language
+// does this- so I wrote the equivilent in C:
+//
+// #include<stdio.h>
+// 
+// // Constants
+// #define TARGET 200
+// #define RECURSION_DEPTH 3
+// 
+// int answer[RECURSION_DEPTH + 1];
+// int x,y;
+// 
+// int recurse(int depth, int sum, int i);
+// 
+// main(){
+//     recurse(0,0,1);
+//     for ( x = 0; x <= RECURSION_DEPTH; x++ ) printf("%d\n",answer[x]);
+// }
+// 
+// int recurse(int depth, int sum, int i){
+//     y = i * i;
+//     if(depth > RECURSION_DEPTH
+//         || y > TARGET - sum) return 0;
+//     answer[depth] = i;
+//     return sum + y == TARGET 
+//         || recurse(depth + 1,sum + y, 1 + i++)
+//         || recurse(depth, sum, i); 
+// }
+// 
+// I compiled with `gcc -S -O ./control.c` (to assembly and optimized):
+//
+// recurse:
+// .LFB25:
+//     .cfi_startproc
+//     pushq   %r12
+//     .cfi_def_cfa_offset 16
+//     .cfi_offset 12, -16
+//     pushq   %rbp
+//     .cfi_def_cfa_offset 24
+//     .cfi_offset 6, -24
+//     pushq   %rbx
+//     .cfi_def_cfa_offset 32
+//     .cfi_offset 3, -32
+//     movl    %edi, %ebx
+//     movl    %edx, %ecx
+//     imull   %edx, %ecx
+//     movl    %ecx, y(%rip)
+//     movl    $0, %eax
+//     cmpl    $3, %edi
+//     jg  .L2
+//     movl    %esi, %ebp
+//     movl    $200, %esi
+//     subl    %ebp, %esi
+//     cmpl    %esi, %ecx
+//     jg  .L2
+//     movslq  %edi, %rax
+//     movl    %edx, answer(,%rax,4)
+//     leal    (%rcx,%rbp), %esi
+//     movl    $1, %eax
+//     cmpl    $200, %esi
+//     je  .L2
+//     leal    1(%rdx), %r12d
+//     leal    1(%rdi), %edi
+//     movl    %r12d, %edx
+//     call    recurse
+//     movl    %eax, %edx
+//     movl    $1, %eax
+//     testl   %edx, %edx
+//     jne .L2
+//     movl    %r12d, %edx
+//     movl    %ebp, %esi
+//     movl    %ebx, %edi
+//     call    recurse
+//     testl   %eax, %eax
+//     setne   %al
+//     movzbl  %al, %eax
+// .L2:
+//     popq    %rbx
+//     .cfi_def_cfa_offset 24
+//     popq    %rbp
+//     .cfi_def_cfa_offset 16
+//     popq    %r12
+//     .cfi_def_cfa_offset 8
+//     ret
+//     .cfi_endproc
+// .LFE25:
+//     .size   recurse, .-recurse
+//     .section    .rodata.str1.1,"aMS",@progbits,1
+//
+// I noticed even GCC with the optimize flag doesn't do this! So I tweaked the assembly:
+//
+// recurse:
+// .LFB25:
+//     .cfi_startproc
+//     pushq   %r12
+//     .cfi_def_cfa_offset 16
+//     .cfi_offset 12, -16
+//     pushq   %rbp
+//     .cfi_def_cfa_offset 24
+//     .cfi_offset 6, -24
+//     pushq   %rbx
+//     .cfi_def_cfa_offset 32
+//     .cfi_offset 3, -32
+//     jmp .L2
+// .L2:
+//     movl    %edi, %ebx
+//     movl    %edx, %ecx
+//     imull   %edx, %ecx
+//     movl    %ecx, y(%rip)
+//     movl    $0, %eax
+//     cmpl    $3, %edi
+//     jg  .L3
+//     movl    %esi, %ebp
+//     movl    $200, %esi
+//     subl    %ebp, %esi
+//     cmpl    %esi, %ecx
+//     jg  .L3
+//     movslq  %edi, %rax
+//     movl    %edx, answer(,%rax,4)
+//     leal    (%rcx,%rbp), %esi
+//     movl    $1, %eax
+//     cmpl    $200, %esi
+//     je  .L3
+//     leal    1(%rdx), %r12d
+//     leal    1(%rdi), %edi
+//     movl    %r12d, %edx
+//     call    recurse
+//     movl    %eax, %edx
+//     movl    $1, %eax
+//     testl   %edx, %edx
+//     jne .L3
+//     movl    %r12d,%edx 
+//     movl    %ebp, %esi
+//     movl    %ebx, %edi
+//     jmp .L2              # Here's the important distinction
+// .L3:
+//     popq    %rbx
+//     .cfi_def_cfa_offset 24
+//     popq    %rbp
+//     .cfi_def_cfa_offset 16
+//     popq    %r12
+//     .cfi_def_cfa_offset 8
+//     ret
+//     .cfi_endproc
+// .LFE25:
+//     .size   recurse, .-recurse
+//     .section    .rodata.str1.1,"aMS",@progbits,1
+//
+// I ran some benchmarks to test whether this really matters. GCC is usually pretty
+// good about optimization, so if they didn't see a reason to put in this particular
+// one then I was starting to doubt whether this really mattered at all
+// 
+// Results for control:
+// sudo chrt -f 99 /usr/bin/time --format="\t %e Time\n\t %M Maximum memory use" bash -c "for i in {1..100000};do ./control; done" > /dev/null
+//   125.42 Time
+//   20124 Maximum memory use
+//
+// Results for optimized:
+// sudo chrt -f 99 /usr/bin/time --format="\t %e Time\n\t %M Maximum memory use" bash -c "for i in {1..100000};do ./optimized; done" > /dev/null
+//   124.83 Time
+//   20124 Maximum memory use
+//
+// So optimization saved us 590ms, woot! but made virtually no memory difference
+// I ran it again, because I might have sneezed
+//
+// Results for control:
+// sudo chrt -f 99 /usr/bin/time --format="\t %e Time\n\t %M Maximum memory use" bash -c "for i in {1..100000};do ./control; done" > /dev/null
+//   124.83 Time
+//   20124 Maximum memory use
+//
+// Results for optimized:
+// sudo chrt -f 99 /usr/bin/time --format="\t %e Time\n\t %M Maximum memory use" bash -c "for i in {1..100000};do ./optimized; done" > /dev/null
+//   125.27 Time
+//   20120 Maximum memory use
+//
+// Lost 440ms, darn. On the flip side I saved 4kb. Woot? Maybe I sneezed again, 
+// but ultimately I've determined for small instances like this, it doesn't really 
+// matter. In addition, my environment is obviously not deterministic, so any minor
+// performance gains or losses really can't be measured with any great certainty.
+// There might be cases where tail end does matter, for example when each instance
+// of the function has more than a couple values shoved into its registers, but this
+// is not one of those programs
