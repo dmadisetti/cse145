@@ -28,13 +28,13 @@ public class LabSeven{
 
     // recursion function to create lines
     private String recurse(int i,int incrementer){
-        if (i == 0) return "DONE!"; // if 0 then the end
+        if (i == 0) return "\n\nDONE!"; // if 0 then the end
         if (i == max) incrementer = -1; // reached max point
-        return bunch(i) + "\n" + recurse(i + incrementer, incrementer); // Call next line
+        return bunch(i) + recurse(i + incrementer, incrementer); // Call next line
     }
 
     private String bunch(int x){
-        stars = ""; // clear variable
+        stars = "\n"; // clear variable
         for (int y = 0; y < x; y++) stars += "*"; // add to variable to build row
         return stars; // return row
     }
