@@ -29,6 +29,7 @@ public class LabEight{
         for (int i = 0; i < temps.length ; i++ ) {
         	if(temps[i] > average) System.out.printf("Day %d with %d\n",i + 1,temps[i]); // Compare and print if need be
         }
+        System.out.println("DONE!");
     }
 
     // Entry point
