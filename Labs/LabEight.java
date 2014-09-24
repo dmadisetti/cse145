@@ -12,7 +12,7 @@ public class LabEight{
     //  Init my scanner
     private Scanner scanner = new Scanner(System.in);
     private double average; // Hold average
-    private int runningTotal; // Total temp
+    private double runningTotal = 0; // Total temp
     private int[] temps = new int[10]; // Holds temperatures
 
     // Constructors are constructorful
@@ -23,7 +23,7 @@ public class LabEight{
  			temps[i] = scanner.nextInt(); // next
  			runningTotal += temps[i]; // Add to total
         }
-        average = runningTotal/temps.length; // Grab average
+        average = runningTotal/(double)temps.length; // Grab average
         System.out.println("The average temperature was " + average); // Print average
 		System.out.println("The days that were above average were");
         for (int i = 0; i < temps.length ; i++ ) {
