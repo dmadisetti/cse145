@@ -1,12 +1,11 @@
 /**
 * @author  Dylan Madisetti
-* @version 1.0, Sept 22, 2014
+* @version 1.0, Sept 25, 2014
 * @source  https://github.com/dmadisetti/cse145
 * @website http://dylanmadisetti.com
 */
 
 import java.util.Scanner;
-import java.util.Arrays;
 
 public class LabNine{
 
