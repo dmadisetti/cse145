@@ -22,7 +22,7 @@ public class LabEleven{
 
     // Constructors are constructorful
     public LabEleven(){
-        System.out.println("Let’s determine if a random matrix is odd or not\n"); // Print obligatory nonsense
+        System.out.println("Let's determine if a random matrix is odd or not\n"); // Print obligatory nonsense
         length = size("length");
         width = size("width");
         matrix = new int[width][length];
