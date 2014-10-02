@@ -25,22 +25,22 @@ public class AssignmentFive{
     private AssignmentFive(){
         // Output ma name
         System.out.println("Enter a word or phrase and I’ll tell you if it’s a palindrome.");
-        palindrome = scanner.nextLine();
-        System.out.println(palindrome + " is "+ (isPalindrome(palindrome)?"":"not ") + "a palindrome."); // print if palindrome
-        System.out.println("Done!");
+        palindrome = scanner.nextLine(); // Capture entire line
+        System.out.println(palindrome + " is "+ (isPalindrome(palindrome) ? "" : "not ") + "a palindrome."); // print if palindrome
+        System.out.println("Done!"); // Done
     }
 
 	public boolean isPalindrome(String tacocat){
-		char[] charArray = tacocat.replaceAll(" ", "").toLowerCase().toCharArray();
-		int len = charArray.length - 1;
-		int halflen = Math.round(charArray.length/2);
+		char[] charArray = tacocat.replaceAll(" ", "").toLowerCase().toCharArray(); // clean and convert to char array so I can iterate and jazz
+		int len = charArray.length - 1; // O based index yo.
+		int halflen = charArray.length/2; // Only need to do half the loop. Casting down is alright, because if odd the middle will be alone
  
 		for(int i = 0;i < halflen;i++){
-			if(charArray[i] == charArray[len-i])
+			if(charArray[i] == charArray[len-i]) // does it match?
 				continue;
-			return false;
+			return false; // guess they didn't match
 		}
-		return true;
+		return true; // Woop. We have a palindrome
 	}
 
     public static void main(String args[]){
