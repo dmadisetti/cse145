@@ -12,8 +12,10 @@ import java.util.regex.Pattern;
 public class Game{
 
     private Scanner scanner = new Scanner(System.in); //  Init my scanner
-    private Team[] teams = new Team[2];
-    private boolean over = false;
+    private Team[] teams = new Team[2]; // Has 2 teams
+    private boolean over = false; // Can't be over before we've begun
+
+    // Regex for input
 	private Matcher match;
     private final String OVER = "over";
     private final String REGEX = "^(over|(a|b) ([0-9]*))$";
@@ -22,8 +24,8 @@ public class Game{
     // Constructors are constructorful
     public Game(){
     	System.out.println("Welcome to a game of basket ball");
-    	set(0);
-    	set(1);
+    	setTeam(0); // The instructions are wrong. Teams go in the constructor. 
+    	setTeam(1); // There shouldn't be a game without teams
     }
 
     // Should not be capitalized
@@ -31,7 +33,7 @@ public class Game{
     	while(!over){
     		System.out.println("\nEnter the team (either a or b) and a score.  Or enter 'over' to end the game");
 
-	        //  Let's match and parse against the regex
+	        //  Let's check, match and parse against the regex
     		match = PATTERN.matcher(scanner.nextLine());
 	        if (!match.matches()){
 	    		System.out.println("Invalid format!"); // Woops. Guess it's not valid format.
@@ -42,8 +44,9 @@ public class Game{
 	        if(match.group(1).equals("over")){
 	        	over = true;
 				System.out.println("The game is over");
-	        }else if(!teams[match.group(2).equals("a") ? 0 : 1].score(Integer.parseInt(match.group(3)))){
-		       	System.out.println("Invalid Score!");
+			// If no over attempt to set score
+	        }else if(!teams[match.group(2).equals("a") ? 0 : 1].score(Integer.parseInt(match.group(3)))){ // I should have probably broken this up, but golf is kinda fun. You should see me with anonymous functions in python
+		       	System.out.println("Invalid Score!"); // score returned false
 		    }
 
 	        // How are we doing?
@@ -64,15 +67,18 @@ public class Game{
 		}
     }
 
+    // Just print out stuff
     private void regurgitate(Team x){
-	    	System.out.println(x.toString() + " has " + x.getPoints() + " Points");
+	    System.out.println(x.toString() + " has " + x.getPoints() + " Points");
     }
 
+    // Which is bigger?
     private Team compare(Team a, Team b){
     	return a.getPoints() > b.getPoints()? a : b;
     }
 
-    private void set(int index){
+    // Set teams
+    private void setTeam(int index){
     	System.out.println("Enter the name for team " + (index+1));
     	teams[index] = new Team(scanner.nextLine());
     }
