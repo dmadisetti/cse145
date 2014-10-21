@@ -43,8 +43,8 @@ public class Grader{
 
         // Mutators? I've always called them setters
         public void setScore(double aScore){
-            if (aScore > 100.0){
-                System.out.println("Too big. Exiting");
+            if (aScore > 100.0 || aScore < 0){
+                System.out.println("Bad. Exiting");
                 System.exit(0);
             }
             this.score = aScore;
