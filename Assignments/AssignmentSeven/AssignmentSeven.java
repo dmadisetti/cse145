@@ -35,7 +35,9 @@ public class AssignmentSeven{
         Doctor c = testDoctor("Albert W. Wiley","Robotics", 1987.0);
         c.regurgitate();
         
+        System.out.println("Testing if the two doctors are equal.");
         assert !b.equals(c);
+        System.out.println("False\n");
         
         System.out.println("Done!");
     }
