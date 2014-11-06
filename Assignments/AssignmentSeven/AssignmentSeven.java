@@ -32,7 +32,7 @@ public class AssignmentSeven{
         b.regurgitate();
 
         System.out.println("Creating Doctor via parameterized constructor");
-        Doctor c = testDoctor("Albert W. Wiley","Robotics", 1987.0);
+        Doctor c = testDoctor("Albert W. Wiley","Robotics", 1987);
         c.regurgitate();
         
         System.out.println("Testing if the two doctors are equal.");
