@@ -1,5 +1,5 @@
 /**
-* AssignmentSeven: It's a game! move around and try not to die
+* AssignmentSeven: Test thingy
 *
 * .__            __            
 * |  |__ ___  __|  | __  ______
