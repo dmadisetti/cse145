@@ -8,6 +8,6 @@ public class RPSHumanPlayer extends RPSPlayer{
     // Constructors are constructorful
     public RPSHumanPlayer(){}
     public void chooseGesture(){
-        scanner.nextLine();
+        setGesture(scanner.nextLine());
     }
 }

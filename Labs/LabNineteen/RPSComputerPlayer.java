@@ -7,6 +7,6 @@ public class RPSComputerPlayer extends RPSPlayer{
     // Constructors are constructorful
     public RPSComputerPlayer(){}
     public void chooseGesture(){
-        gesture = GESTURES.getKeys()[random.nextInt(2)];
+        setGesture(GESTURES[random.nextInt(GESTURES.length)]);
     }
 }
