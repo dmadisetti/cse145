@@ -1,5 +1,23 @@
+/**
+* AssignmentEight: Lab 3 and 17 just slightly different
+*
+* .__            __            
+* |  |__ ___  __|  | __  ______
+* |  |  \\  \/  /  |/ / /  ___/
+* |   Y  \>    <|    <  \___ \ 
+* |___|  /__/\_ \__|_ \/____  >
+*     \/      \/    \/     \/ 
+* Hacked together by Dylan Madisetti
+*
+* @author  Dylan Madisetti
+* @version 1.0, Nov 12, 2014
+* @source  https://github.com/dmadisetti/cse145
+* @website http://dylanmadisetti.com
+*/
 import java.util.Scanner;
 public class DateConverterDriver {
+	
+	// this is a class
 	public static void main(String[] args) {
 		System.out.println("Welcome to the date converter!");		
 		
