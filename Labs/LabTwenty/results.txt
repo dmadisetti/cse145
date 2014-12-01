@@ -1,0 +1,5 @@
+Name Travis the Immortal!
+HP 40
+Strength 15
+Speed 2.0
+Weapon Board with a nail
